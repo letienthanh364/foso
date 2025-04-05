@@ -2,38 +2,44 @@ import { forwardRef, useState } from "react";
 import { TextField, MenuItem } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { TimerangeSortValueType } from "src/pages/HomePage/HomePage";
 
 interface OptionInput {
   name: string;
-  value: string;
+  value: TimerangeSortValueType;
 }
 
 interface TimeSorterProps {
-  onChange?: (value: string) => void;
-  value: string;
+  onChange?: (value: TimerangeSortValueType) => void;
+  value: TimerangeSortValueType;
 }
 
 const TimeSorter = forwardRef<HTMLInputElement, TimeSorterProps>(
   ({ onChange, value }: TimeSorterProps, ref) => {
-    const [selectedOption, setSelectedOption] = useState<string>(value);
+    const [selectedOption, setSelectedOption] =
+      useState<TimerangeSortValueType>(value);
 
     const timeOptions: OptionInput[] = [
       {
         name: "Hôm nay",
-        value: "today",
+        value: "by_day",
       },
       {
         name: "Tuần này",
-        value: "week",
+        value: "by_week",
       },
       {
         name: "Tháng này",
-        value: "month",
+        value: "by_month",
+      },
+      {
+        name: "Quý này",
+        value: "by_quarter",
       },
     ];
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value;
+      const newValue = event.target.value as TimerangeSortValueType;
       setSelectedOption(newValue);
       if (onChange) {
         onChange(newValue);

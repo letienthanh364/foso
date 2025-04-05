@@ -1,6 +1,7 @@
 import { useState } from "react";
-import TimeSorter from "src/components/_common/TimeSorter";
 import WidgetSummary from "src/components/_common/WidgetSummary";
+import HomePage_BoxTemplate from "../HomePage_BoxTemplate";
+import { TimerangeSortValueType } from "../../HomePage";
 
 interface HomePage_TopProductsProps {}
 
@@ -41,30 +42,25 @@ const productData: WidgetItem[] = [
 const emptyData = [undefined, undefined, undefined, undefined, undefined];
 
 export default function HomePage_TopProducts({}: HomePage_TopProductsProps) {
-  const [currentSort, setCurrentSort] = useState<string>("month");
-  const displayData = currentSort === "month" ? productData : emptyData;
+  const [currentSort, setCurrentSort] =
+    useState<TimerangeSortValueType>("by_month");
+  const displayData = currentSort === "by_month" ? productData : emptyData;
 
-  const onChangeTimeSort = (value: string) => {
+  const onChangeTimeSort = (value: TimerangeSortValueType) => {
     setCurrentSort(value);
   };
 
   return (
-    <div className="container ">
-      <div className="flex w-full flex-col gap-4">
-        <div className="flex items-center justify-between w-full gap-2">
-          <p className="font-medium text-lg capitalize flex-grow text-left">
-            Top sản phẩm sản xuất nhiều nhất
-          </p>
-
-          <TimeSorter value={currentSort} onChange={onChangeTimeSort} />
-        </div>
-
-        <div className="w-full flex gap-3">
-          {displayData.map((ele, index) => {
-            return <WidgetSummary key={ele?.label || index} data={ele} />;
-          })}
-        </div>
+    <HomePage_BoxTemplate
+      title="Top sản phẩm sản xuất nhiều nhất"
+      sortValue={currentSort}
+      onChangeSortValue={onChangeTimeSort}
+    >
+      <div className="w-full flex gap-3">
+        {displayData.map((ele, index) => {
+          return <WidgetSummary key={ele?.label || index} data={ele} />;
+        })}
       </div>
-    </div>
+    </HomePage_BoxTemplate>
   );
 }
