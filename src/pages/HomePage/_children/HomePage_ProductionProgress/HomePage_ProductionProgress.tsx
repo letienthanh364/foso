@@ -17,7 +17,7 @@ export default function HomePage_ProductionProgress({}: HomePage_ProductionProgr
       extendHeaderClassnames="px-4 py-6"
       sortType="status"
     >
-      <div className="py-2 w-full flex flex-col gap-8 px-6">
+      <div className="pt-2 pb-8 w-full flex flex-col gap-8 px-6">
         {displayData.map((ele, index) => {
           const { name, count, total } = ele;
           return (
