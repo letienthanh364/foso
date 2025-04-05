@@ -1,72 +1,43 @@
-import { Box, Card, CardProps } from "@mui/material";
-import { ChartOptions } from "src/components/chart";
-import { Iconify } from "src/components/iconify";
-import { fNumber, fPercent } from "src/utils/format-number";
+import { DecreaseIcon, IncreaseIcon } from "src/assets/icons";
 
-type Props = CardProps & {
-  title: string;
-  total: number;
-  percent: number;
-  chart?: {
-    colors?: string[];
-    categories: string[];
-    series: number[];
-    options?: ChartOptions;
-  };
-};
+interface WidgetSummaryProps {
+  value: number;
+  label: string;
+  percentChange: number;
+}
 
 export default function WidgetSummary({
-  title,
-  percent,
-  total,
-  sx,
-  ...other
-}: Props) {
-  const renderTrending = (
-    <Box sx={{ gap: 0.5, display: "flex", alignItems: "center" }}>
-      <Iconify
-        width={24}
-        icon={
-          percent < 0
-            ? "solar:double-alt-arrow-down-bold-duotone"
-            : "solar:double-alt-arrow-up-bold-duotone"
-        }
-        sx={{
-          flexShrink: 0,
-          color: "success.main",
-          ...(percent < 0 && { color: "error.main" }),
-        }}
-      />
-
-      <Box component="span" sx={{ typography: "subtitle2" }}>
-        {percent > 0 && "+"}
-        {fPercent(percent)}
-      </Box>
-      <Box
-        component="span"
-        sx={{ typography: "body2", color: "text.secondary" }}
-      >
-        last 7 days
-      </Box>
-    </Box>
-  );
+  value,
+  label,
+  percentChange,
+}: WidgetSummaryProps) {
+  const isPositive = percentChange >= 0;
 
   return (
-    <Card
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        p: 3,
-        ...sx,
-      }}
-      {...other}
-    >
-      <div className="flex flex-col gap-2 w-full items-center">
-        <Box sx={{ typography: "h6" }}>{title}</Box>
-        <Box sx={{ mt: 1.5, mb: 1, typography: "h3" }}>{fNumber(total)}</Box>
+    <div className="bg-white p-6 rounded-xl shadow-md flex-grow">
+      <div className="flex justify-between items-start w-full">
+        <div className="flex flex-col items-start">
+          <p className=" font-bold text-blue-light text-[32px]">{value}</p>
+          <span className="text-sm mt-2">{label}</span>
+        </div>
 
-        {renderTrending}
+        <div className="flex items-center gap-1">
+          {isPositive ? (
+            <IncreaseIcon
+              chevornClassName="text-[#1F9285]"
+              carretClassName="text-[#1FC583]"
+            />
+          ) : (
+            <DecreaseIcon
+              chevornClassName="text-error-main"
+              carretClassName="text-error-light"
+            />
+          )}
+          <span className="font-medium text-sm">
+            {Math.abs(percentChange).toFixed(1)}%
+          </span>
+        </div>
       </div>
-    </Card>
+    </div>
   );
 }

@@ -16,6 +16,7 @@ function AppIner() {
     <div
       style={{
         minHeight: "inherit",
+        overflowY: "scroll",
       }}
     >
       <Toaster position="top-center" />
