@@ -1,54 +1,12 @@
-import { useState } from "react";
 import WidgetSummary from "src/components/_common/WidgetSummary";
 import HomePage_BoxTemplate from "../HomePage_BoxTemplate";
-import { TimerangeSortValueType } from "../../HomePage";
+import { useHomePage_TopProducts } from "./useHomePage_TopProducts.hook";
 
 interface HomePage_TopProductsProps {}
 
-interface WidgetItem {
-  label: string;
-  value: number;
-  percentChange: number;
-}
-
-const productData: WidgetItem[] = [
-  {
-    label: "Áo sơ mi dài tay",
-    value: 48,
-    percentChange: 8.2,
-  },
-  {
-    label: "Quần tây",
-    value: 18,
-    percentChange: -5,
-  },
-  {
-    label: "Áo hoodie",
-    value: 40,
-    percentChange: 12,
-  },
-  {
-    label: "Đầm maxi",
-    value: 23,
-    percentChange: 3.5,
-  },
-  {
-    label: "Áo thun cổ tròn",
-    value: 48,
-    percentChange: 4.7,
-  },
-];
-
-const emptyData = [undefined, undefined, undefined, undefined, undefined];
-
 export default function HomePage_TopProducts({}: HomePage_TopProductsProps) {
-  const [currentSort, setCurrentSort] =
-    useState<TimerangeSortValueType>("this_month");
-  const displayData = currentSort === "this_month" ? productData : emptyData;
-
-  const onChangeTimeSort = (value: TimerangeSortValueType) => {
-    setCurrentSort(value);
-  };
+  const { currentSort, onChangeTimeSort, displayData } =
+    useHomePage_TopProducts();
 
   return (
     <HomePage_BoxTemplate

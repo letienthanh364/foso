@@ -1,13 +1,9 @@
 import axios, { AxiosError, AxiosResponse, type AxiosInstance } from "axios";
-import {
-  clearLS,
-  getAccessTokenFromLS,
-  getAccessTokenFromSessionStorage,
-  setAccessTokenToSessionStorage,
-} from "./auth.util";
+
 import config from "../configs/config";
 import { HttpErrorKeys } from "../constants/httpResponeErrorKey";
 import { ErrorRespone } from "src/types/_commons/common.type";
+import Utils_authentication from "./auth.util";
 
 const domain = config.ApiURL;
 export const ApiURL = domain;
@@ -17,7 +13,8 @@ class Http {
   private accessToken: string | null;
   constructor() {
     this.accessToken =
-      getAccessTokenFromLS() || getAccessTokenFromSessionStorage();
+      Utils_authentication.getAccessTokenFromLS() ||
+      Utils_authentication.getAccessTokenFromSessionStorage();
     this.instance = axios.create({
       baseURL: ApiURL,
       timeout: 30000,
@@ -46,7 +43,7 @@ class Http {
           const accessToken = response.data;
           if (accessToken !== undefined) {
             this.accessToken = accessToken;
-            setAccessTokenToSessionStorage(accessToken);
+            Utils_authentication.setAccessTokenToSessionStorage(accessToken);
           }
         }
         return response;
@@ -55,7 +52,7 @@ class Http {
         const errorResponse = error.response?.data as ErrorRespone;
         const errorKey = errorResponse.error;
         if (errorKey == HttpErrorKeys.NoPermission) {
-          clearLS();
+          Utils_authentication.clearLS();
           sessionStorage.clear();
           this.accessToken = null;
         }

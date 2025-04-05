@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 import HttpStatusCode from "../constants/httpStatusCode.enum";
-import { defaultPaging } from "../types/paging/paging.params.type";
 import moment from "moment";
 import { PagingResponse } from "../types/_commons/common.type";
+import { defaultPagingQueryConfig } from "src/types/paging/paging.params.type";
 
 export const extractKeyFromUrl = (url: string): string => {
   const regex = /\/([^/?]+)\?/;
@@ -28,11 +28,10 @@ export const createPaging = (
   responseData: AxiosResponse<PagingResponse<any[]>, any> | undefined
 ) => {
   if (responseData) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, ...paging } = responseData.data;
     return paging;
   }
-  return defaultPaging;
+  return defaultPagingQueryConfig;
 };
 
 export const removeSpecialCharacter = (str: string) =>

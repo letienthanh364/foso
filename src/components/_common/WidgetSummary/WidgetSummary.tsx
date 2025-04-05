@@ -1,7 +1,13 @@
 import { DecreaseIcon, IncreaseIcon } from "src/assets/icons";
 
+export interface WidgetItem {
+  label: string;
+  value: number;
+  percentChange: number;
+}
+
 interface WidgetSummaryProps {
-  data?: { value: number; label: string; percentChange: number };
+  data?: WidgetItem;
 }
 
 export default function WidgetSummary({ data }: WidgetSummaryProps) {
