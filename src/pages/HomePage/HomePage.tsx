@@ -1,4 +1,5 @@
 import HomePage_ProductionPlan from "./_children/HomePage_ProductionPlan";
+import HomePage_ProductionProgress from "./_children/HomePage_ProductionProgress";
 import HomePage_TopCustomers from "./_children/HomePage_TopCustomers";
 import HomePage_TopProducts from "./_children/HomePage_TopProducts";
 
@@ -23,6 +24,14 @@ export default function HomePage({}: HomePageProps) {
         <div className="col-span-1">
           <HomePage_TopCustomers />
         </div>
+      </div>
+
+      <div className="w-full grid grid-cols-3 container gap-6">
+        <div className="col-span-1">
+          <HomePage_ProductionProgress />
+        </div>
+        <div className="col-span-1"></div>
+        <div className="col-span-1"></div>
       </div>
     </div>
   );

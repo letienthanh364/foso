@@ -17,6 +17,7 @@ export default function HomePage_ProductionPlan({}: HomePage_ProductionPlanProps
       onChangeSortValue={onChangeTimeSort}
       wrapperClassnames="bg-white shadow-md rounded-2xl"
       extendHeaderClassnames="px-4 py-6"
+      sortType="time"
     >
       <div className="">
         <CustomApexChart

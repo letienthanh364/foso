@@ -1,4 +1,4 @@
-export interface OptionInput {
+export interface OptionInput<T> {
   name: string;
-  value: string | number;
+  value: T;
 }

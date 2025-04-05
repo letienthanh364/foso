@@ -55,6 +55,7 @@ export default function HomePage_TopProducts({}: HomePage_TopProductsProps) {
       title="Top sản phẩm sản xuất nhiều nhất"
       sortValue={currentSort}
       onChangeSortValue={onChangeTimeSort}
+      sortType="time"
     >
       <div className="w-full flex gap-3">
         {displayData.map((ele, index) => {

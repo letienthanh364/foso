@@ -1,25 +1,29 @@
 import { ReactNode } from "react";
-import { TimerangeSortValueType } from "../../HomePage";
-import TimeSorter from "src/components/_common/TimeSorter";
 import classNames from "classnames";
+import CustomSorter from "src/components/_common/CustomSorter";
+import CustomSorterOptions from "src/components/_common/CustomSorter/options";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 
-interface HomePage_BoxTemplateProps {
+interface HomePage_BoxTemplateProps<T> {
   title: string;
-  sortValue: TimerangeSortValueType;
-  onChangeSortValue: (value: TimerangeSortValueType) => void;
+  sortValue: T;
+  onChangeSortValue: (value: T) => void;
   children: ReactNode;
   wrapperClassnames?: string;
   extendHeaderClassnames?: string;
+  sortType: "time" | "status";
 }
 
-export default function HomePage_BoxTemplate({
+export default function HomePage_BoxTemplate<T>({
   title,
   onChangeSortValue,
   sortValue,
   children,
   wrapperClassnames = "container",
   extendHeaderClassnames,
-}: HomePage_BoxTemplateProps) {
+  sortType,
+}: HomePage_BoxTemplateProps<T>) {
   return (
     <div className={wrapperClassnames}>
       <div className="flex w-full flex-col gap-4">
@@ -33,7 +37,24 @@ export default function HomePage_BoxTemplate({
             {title}
           </p>
 
-          <TimeSorter value={sortValue} onChange={onChangeSortValue} />
+          <CustomSorter
+            value={sortValue}
+            onChangeValue={onChangeSortValue}
+            optionList={
+              sortType === "time"
+                ? CustomSorterOptions.timeOptions
+                : CustomSorterOptions.statusOptions
+            }
+            iconLable={
+              sortType === "time" ? (
+                <FontAwesomeIcon
+                  icon={faCalendar}
+                  size="sm"
+                  className="text-[#9295A4]"
+                />
+              ) : undefined
+            }
+          />
         </div>
 
         {children}
