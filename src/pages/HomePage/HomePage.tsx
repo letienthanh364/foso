@@ -1,13 +1,15 @@
 import HomePage_ProductionPlan from "./_children/HomePage_ProductionPlan";
+import HomePage_TopCustomers from "./_children/HomePage_TopCustomers";
 import HomePage_TopProducts from "./_children/HomePage_TopProducts";
 
 interface HomePageProps {}
 
 export type TimerangeSortValueType =
-  | "by_day"
-  | "by_week"
-  | "by_month"
-  | "by_quarter";
+  | "today"
+  | "this_week"
+  | "this_month"
+  | "this_quarter"
+  | "this_year";
 
 export default function HomePage({}: HomePageProps) {
   return (
@@ -18,7 +20,9 @@ export default function HomePage({}: HomePageProps) {
         <div className="col-span-1">
           <HomePage_ProductionPlan />
         </div>
-        <div className="col-span-1"></div>
+        <div className="col-span-1">
+          <HomePage_TopCustomers />
+        </div>
       </div>
     </div>
   );

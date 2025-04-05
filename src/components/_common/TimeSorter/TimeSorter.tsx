@@ -22,19 +22,23 @@ const TimeSorter = forwardRef<HTMLInputElement, TimeSorterProps>(
     const timeOptions: OptionInput[] = [
       {
         name: "Hôm nay",
-        value: "by_day",
+        value: "today",
       },
       {
         name: "Tuần này",
-        value: "by_week",
+        value: "this_week",
       },
       {
         name: "Tháng này",
-        value: "by_month",
+        value: "this_month",
       },
       {
         name: "Quý này",
-        value: "by_quarter",
+        value: "this_quarter",
+      },
+      {
+        name: "Năm nay",
+        value: "this_year",
       },
     ];
 

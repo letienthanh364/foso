@@ -43,8 +43,8 @@ const emptyData = [undefined, undefined, undefined, undefined, undefined];
 
 export default function HomePage_TopProducts({}: HomePage_TopProductsProps) {
   const [currentSort, setCurrentSort] =
-    useState<TimerangeSortValueType>("by_month");
-  const displayData = currentSort === "by_month" ? productData : emptyData;
+    useState<TimerangeSortValueType>("this_month");
+  const displayData = currentSort === "this_month" ? productData : emptyData;
 
   const onChangeTimeSort = (value: TimerangeSortValueType) => {
     setCurrentSort(value);
