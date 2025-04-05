@@ -1,7 +1,6 @@
-import React from "react";
 import HomePage_BoxTemplate from "../HomePage_BoxTemplate";
-import CustomApexChart from "src/components/_common/CustomApexChart";
 import { useHomePage_ProductionProgress } from "./useHomePage_ProductionProgress.hook";
+import FillBar from "src/components/_common/FillBar";
 
 interface HomePage_ProductionProgressProps {}
 
@@ -18,7 +17,19 @@ export default function HomePage_ProductionProgress({}: HomePage_ProductionProgr
       extendHeaderClassnames="px-4 py-6"
       sortType="status"
     >
-      <div className="">hello</div>
+      <div className="py-2 w-full flex flex-col gap-8 px-6">
+        {displayData.map((ele, index) => {
+          const { name, count, total } = ele;
+          return (
+            <FillBar
+              key={total === -1 ? index : name}
+              count={count}
+              total={total}
+              label={name}
+            />
+          );
+        })}
+      </div>
     </HomePage_BoxTemplate>
   );
 }
