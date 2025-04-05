@@ -1,39 +1,13 @@
 import { classNames } from "primereact/utils";
 import { NavLink } from "react-router-dom";
-import mainPath from "src/constants/path";
-import { NavigateItem } from "src/types/_commons/common.type";
+import { useMainHeader } from "./useMainHeader.hook";
+import SearchBar from "../_common/SearchBar";
+import { Badge } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainHeader() {
-  const navigateItems: NavigateItem[] = [
-    {
-      name: "Danh mục",
-      url: mainPath.categories,
-    },
-    {
-      name: "Bán & Xuất hàng",
-      url: mainPath.salesExports,
-    },
-    {
-      name: "Mua & Nhập hàng",
-      url: mainPath.purchasesImports,
-    },
-    {
-      name: "Kho & Sản xuất",
-      url: mainPath.warehouseProduction,
-    },
-    {
-      name: "Kế toán",
-      url: mainPath.accounting,
-    },
-    {
-      name: "Báo cáo & Thống kê",
-      url: mainPath.reportsStatistics,
-    },
-    {
-      name: "Tiện ích",
-      url: mainPath.utilities,
-    },
-  ];
+  const { onSearch, firstNavList, secondNavList } = useMainHeader();
 
   return (
     <div className="w-full h-[72px] flex items-center justify-center bg-blue-new text-white">
@@ -41,7 +15,7 @@ export default function MainHeader() {
         <div className="flex items-center justify-start gap-4">
           <img src="/images/logo.png" alt="mrp" />
           <div className="flex items-center text-sm ">
-            {navigateItems.map((ele) => {
+            {firstNavList.map((ele) => {
               return (
                 <NavLink
                   key={ele.name}
@@ -59,7 +33,43 @@ export default function MainHeader() {
             })}
           </div>
         </div>
-        <div className=""></div>
+        <div className="flex items-center gap-4 justify-end">
+          <SearchBar onSearch={onSearch} placeholder="Tìm kiếm" />
+          <div className="flex items-center gap-3">
+            {secondNavList.map((ele) => {
+              return (
+                <NavLink
+                  key={ele.name}
+                  to={ele.url}
+                  className={({ isActive }) =>
+                    classNames("p-1 rounded-md", {
+                      "bg-white/20": isActive,
+                      "hover:bg-white/20": !isActive,
+                    })
+                  }
+                >
+                  {ele.name === "noti" ? (
+                    <Badge badgeContent={1} color="error">
+                      {ele.iconLabel}
+                    </Badge>
+                  ) : (
+                    ele.iconLabel
+                  )}
+                </NavLink>
+              );
+            })}
+          </div>
+          <div className={classNames("flex items-center gap-1 ")}>
+            <img src="images/Rectangle_2026.png" alt="Rectangle_2026" />
+            <button
+              type="button"
+              className="hover:bg-white/20 p-1 rounded-lg
+            "
+            >
+              <FontAwesomeIcon icon={faChevronDown} />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -26,6 +26,8 @@ export default tseslint.config(
       "no-empty-pattern": ["off", { allowObjectPatternsAsParameters: true }],
       "@typescript-eslint/no-empty-interface": "off",
       "@typescript-eslint/no-empty-object-type": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "off",
     },
   }
 );

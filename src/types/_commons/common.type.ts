@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HTMLInputTypeAttribute, ReactNode } from "react";
 import { Pagination } from "../paging/paging.params.type";
-import { InputFieldName } from "../input.type";
 import { UserModel } from "../user/user.type";
 import { IDType } from "./id.type";
 
@@ -38,10 +37,11 @@ export type Nullable<T> = {
 export interface NavigateItem {
   name: string;
   url: string;
+  iconLabel?: ReactNode;
 }
 
 export interface InputField {
-  name: InputFieldName;
+  name: string;
   title: string;
   placeHolder?: string;
   svgData?: ReactNode;
