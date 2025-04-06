@@ -64,7 +64,10 @@ export default function MainHeader_Mobile({
         }}
         direction="ltr"
       >
-        <MainHeader_Mobile_MenuContent mainHeaderProps={mainHeaderProps} />
+        <MainHeader_Mobile_MenuContent
+          mainHeaderProps={mainHeaderProps}
+          setOpenMenu={setOpenMenu}
+        />
       </SideDrawer>
     </div>
   );
