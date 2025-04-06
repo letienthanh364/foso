@@ -1,5 +1,6 @@
 import { MenuItem, TextField } from "@mui/material";
 import React, { forwardRef, ReactNode, useState } from "react";
+import { useViewport } from "src/hooks/common/useViewport";
 import { OptionInput } from "src/types/_inputs/option.input.type";
 
 interface CustomSorterProps<T> {
@@ -30,16 +31,20 @@ const CustomSorter = forwardRef<
   const renderSelectedOption = (selected: T) => {
     const selectedObj = optionList.find((option) => option.value === selected);
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 xl:gap-2 text-sm xl:text-base">
         {iconLable}
 
-        <span>{selectedObj?.name || "Select time"}</span>
+        <span className="w-full truncate">
+          {selectedObj?.name || "Select time"}
+        </span>
       </div>
     );
   };
 
+  const isSmall = useViewport().width < 1024;
+
   return (
-    <div className="flex-shrink w-[150px]">
+    <div className="w-[120px] max-w-[150px] overflow-hidden">
       <TextField
         ref={ref}
         select
@@ -54,7 +59,7 @@ const CustomSorter = forwardRef<
               PaperProps: {
                 className: "custom-scrollbar",
                 sx: {
-                  "--scrollbar-width": "4px",
+                  "--scrollbar-width": "2px",
                   maxHeight: "320px",
                   overflowY: "auto",
                   boxSizing: "content-box",
@@ -65,8 +70,9 @@ const CustomSorter = forwardRef<
         }}
         sx={{
           "& .MuiOutlinedInput-input": {
-            fontSize: "16px",
-            padding: "8px 12px",
+            // fontSize: isSmall ? "14px" : "16px",
+            padding: isSmall ? "6px 8px" : "8px 12px",
+            alignItems: "center",
           },
           "& .MuiOutlinedInput-root": {
             borderRadius: "8px",
@@ -77,7 +83,9 @@ const CustomSorter = forwardRef<
       >
         {optionList.map((option) => (
           <MenuItem key={option.name} value={option.value as string | number}>
-            <div className="flex items-center gap-2">{option.name}</div>
+            <div className="flex items-center text-sm xl:text-base">
+              {option.name}
+            </div>
           </MenuItem>
         ))}
       </TextField>

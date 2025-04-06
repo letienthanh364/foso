@@ -29,32 +29,34 @@ export default function HomePage_BoxTemplate<T>({
       <div className="flex w-full flex-col gap-4">
         <div
           className={classNames(
-            "flex items-start xl:items-center justify-between w-full gap-2",
+            "flex items-start lg:items-center justify-between w-full gap-2",
             extendHeaderClassnames
           )}
         >
-          <p className="font-medium xl:text-lg capitalize flex-grow text-left">
+          <p className="font-medium text-sm lg:text-base xl:text-lg capitalize flex-grow text-left">
             {title}
           </p>
 
-          <CustomSorter
-            value={sortValue}
-            onChangeValue={onChangeSortValue}
-            optionList={
-              sortType === "time"
-                ? CustomSorterOptions.timeOptions
-                : CustomSorterOptions.statusOptions
-            }
-            iconLable={
-              sortType === "time" ? (
-                <FontAwesomeIcon
-                  icon={faCalendar}
-                  size="sm"
-                  className="text-[#9295A4]"
-                />
-              ) : undefined
-            }
-          />
+          <div className="shrink-0">
+            <CustomSorter
+              value={sortValue}
+              onChangeValue={onChangeSortValue}
+              optionList={
+                sortType === "time"
+                  ? CustomSorterOptions.timeOptions
+                  : CustomSorterOptions.statusOptions
+              }
+              iconLable={
+                sortType === "time" ? (
+                  <FontAwesomeIcon
+                    icon={faCalendar}
+                    size="sm"
+                    className="text-[#9295A4]"
+                  />
+                ) : undefined
+              }
+            />
+          </div>
         </div>
 
         {children}

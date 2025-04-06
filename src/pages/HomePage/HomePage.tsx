@@ -19,7 +19,7 @@ export default function HomePage({}: HomePageProps) {
     <div className="w-full flex flex-col gap-6 py-6">
       <HomePage_TopProducts />
 
-      <div className="grid grid-cols-2 gap-6 container">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 container">
         <div className="col-span-1">
           <HomePage_ProductionPlan />
         </div>
@@ -28,7 +28,7 @@ export default function HomePage({}: HomePageProps) {
         </div>
       </div>
 
-      <div className="w-full grid grid-cols-3 container gap-6">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-3 container gap-6">
         <div className="col-span-1 min-h-full">
           <HomePage_ProductionState />
         </div>
