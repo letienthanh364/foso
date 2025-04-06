@@ -1,6 +1,7 @@
 import { ApexOptions } from "apexcharts";
 import { useMemo, useState } from "react";
 import { TimerangeSortValueType } from "../../HomePage";
+import { min } from "lodash";
 
 interface CustomerSales {
   name: string;
@@ -16,7 +17,12 @@ const customerSalesData: CustomerSales[] = [
   { name: "Shop thời trang công sở Basic Office", value: 2650 },
 ];
 
-export const useHomePage_TopCustomers = () => {
+interface useHomePage_TopCustomersProps {
+  currentChartWidth: number;
+}
+export const useHomePage_TopCustomers = ({
+  currentChartWidth,
+}: useHomePage_TopCustomersProps) => {
   const [currentSort, setCurrentSort] =
     useState<TimerangeSortValueType>("this_year");
   const displayData = currentSort === "this_year" ? customerSalesData : [];
@@ -30,6 +36,7 @@ export const useHomePage_TopCustomers = () => {
     barColor: "#0375F3",
     xAxisLabel: "Sản lượng",
     yAxisLabel: "Khách hàng",
+    currentChartWidth,
   });
 
   return { currentSort, onChangeTimeSort, useChartReturns };
@@ -40,16 +47,19 @@ interface useHorizontalBarChartProps {
   xAxisLabel?: string;
   yAxisLabel?: string;
   barColor?: string;
+  currentChartWidth: number;
 }
 const useHorizontalBarChart = ({
   data,
   xAxisLabel = "Sản lượng",
   yAxisLabel = "Khách hàng",
   barColor = "#0375F3",
+  currentChartWidth,
 }: useHorizontalBarChartProps) => {
   const dataIsEmpty = data.length === 0;
 
   const customers = useMemo(() => data.map((item) => item.name), [data]);
+
   const values = useMemo(() => data.map((item) => item.value), [data]);
 
   const { calculatedMaxValue, tickAmount } = useMemo(() => {
@@ -173,7 +183,6 @@ const useHorizontalBarChart = ({
         },
       },
       yaxis: {
-        categories: customers,
         title: {
           text: yAxisLabel,
           rotate: 0,
@@ -195,8 +204,9 @@ const useHorizontalBarChart = ({
             colors: "#9295A4",
             fontWeight: 400,
           },
-          minWidth: 150,
-          maxWidth: 150,
+
+          minWidth: currentChartWidth / 5,
+          maxWidth: min([currentChartWidth / 4, 150]),
         },
       },
     };
@@ -208,6 +218,7 @@ const useHorizontalBarChart = ({
     xAxisLabel,
     yAxisLabel,
     dataIsEmpty,
+    currentChartWidth,
   ]);
 
   const seriesData = useMemo(() => {

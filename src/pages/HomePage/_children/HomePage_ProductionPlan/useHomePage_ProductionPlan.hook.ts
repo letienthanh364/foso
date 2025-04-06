@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { TimerangeSortValueType } from "../../HomePage";
 import { ApexOptions } from "apexcharts";
+import Utils_String from "src/utils/string.util";
+import { useViewport } from "src/hooks/common/useViewport";
 
 export interface ProductionPlan {
   name: string;
@@ -52,7 +54,17 @@ const useChartData = ({
   xAxisLabel = "Mặt hàng",
   colors = ["#0375F3", "#1FC583"],
 }: useChartDataProps) => {
-  const categories = useMemo(() => data.map((item) => item.name), [data]);
+  const isSmall = useViewport().width < 768;
+
+  const categories = useMemo(
+    () =>
+      data.map((item) =>
+        isSmall
+          ? Utils_String.splitStringToArray({ inputString: item.name })
+          : item.name
+      ),
+    [data, isSmall]
+  );
   const plannedValues = useMemo(() => data.map((item) => item.planned), [data]);
   const actualValues = useMemo(() => data.map((item) => item.actual), [data]);
 
@@ -86,9 +98,9 @@ const useChartData = ({
             colors: "#9295A4",
             fontWeight: 400,
           },
-          formatter: (val) => {
-            return isNaN(Number(val)) ? String(val) : "";
-          },
+          ...(data.length === 0
+            ? { formatter: (_val) => "" }
+            : { formatter: undefined }),
         },
         axisTicks: {
           show: false,
@@ -204,6 +216,7 @@ const useChartData = ({
     calculatedMaxValue,
     categories,
     colors,
+    data.length,
     tickAmount,
     xAxisLabel,
     yAxisLabel,
