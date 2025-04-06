@@ -9,7 +9,7 @@ import {
 import mainPath from "src/constants/path";
 import { NavigateItem } from "src/types/_commons/common.type";
 
-export const useMainHeader = () => {
+export const useMainHeader = (): useMainHeaderReturns => {
   const onSearch = (value: string | undefined) => {
     toast.success(value, { duration: 1000 });
   };
@@ -77,3 +77,9 @@ export const useMainHeader = () => {
 
   return { onSearch, firstNavList, secondNavList };
 };
+
+export interface useMainHeaderReturns {
+  onSearch: (value: string | undefined) => void;
+  firstNavList: NavigateItem[];
+  secondNavList: NavigateItem[];
+}

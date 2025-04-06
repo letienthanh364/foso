@@ -9,6 +9,8 @@ const mainPath = {
   accounting: "/accounting",
   reportsStatistics: "/reports-statistics",
   utilities: "/utilities",
+
+  notification: "/utilities",
 };
 
 export default mainPath;
