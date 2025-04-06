@@ -29,11 +29,11 @@ export default function HomePage_BoxTemplate<T>({
       <div className="flex w-full flex-col gap-4">
         <div
           className={classNames(
-            "flex items-center justify-between w-full gap-2",
+            "flex items-start xl:items-center justify-between w-full gap-2",
             extendHeaderClassnames
           )}
         >
-          <p className="font-medium text-lg capitalize flex-grow text-left">
+          <p className="font-medium xl:text-lg capitalize flex-grow text-left">
             {title}
           </p>
 

@@ -15,7 +15,7 @@ export default function HomePage_TopProducts({}: HomePage_TopProductsProps) {
       onChangeSortValue={onChangeTimeSort}
       sortType="time"
     >
-      <div className="w-full flex gap-3">
+      <div className="w-full flex gap-3 flex-wrap">
         {displayData.map((ele, index) => {
           return <WidgetSummary key={ele?.label || index} data={ele} />;
         })}
